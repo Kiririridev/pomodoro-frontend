@@ -11,18 +11,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-redux": "^6.0.1",
-    "react-hot-loader": "^4.8.2",
-    "redux": "^4.0.1",
-    "webpack": "^4.29.6",
-    "webpack-dev-server": "^3.2.1",
-    "webpack-cli": "^3.3.0",
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
-    "babel-loader": "^8.0.5",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
     "@babel/preset-react": "^7.0.0",
-    "@babel/preset-es2015": "^7.0.0-beta.53"
+    "@material-ui/core": "^3.9.3",
+    "babel-loader": "^8.0.5",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-hot-loader": "^4.8.2",
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.1",
+    "typeface-roboto": "0.0.54",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
   }
 }
