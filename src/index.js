@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'typeface-roboto';
+import Timer from './timer/components/Timer.js';
 
-const firstElement = "Main Element";
+const firstElement = new Timer();
 
 ReactDOM.render(
-	<div>{firstElement}</div>,
-	document.getElementById("app")
+	<Timer/>,
+	document.getElementById("app"),
 );
 
 module.hot().accept();
