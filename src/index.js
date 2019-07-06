@@ -8,5 +8,3 @@ ReactDOM.render(
 );
 
 module.hot.accept();
-
-

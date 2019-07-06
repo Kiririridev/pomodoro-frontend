@@ -1,11 +1,19 @@
 import * as React from 'react';
-import {getPomodoros} from '../../api/api';
+import {getPomodoros, postPomodoro} from '../../api/api';
 
 //todo fix bug
 //todo split to component and container
 //todo rewrite to functional component
 //todo plan redux
 
+const SAMPLE_DATA = {
+	pomodoroId: 0,
+	userId: "kiri",
+	pomodoroDate: "1994-06-23",
+	length: 20,
+	description: "testFetches",
+	tag: "TEST",
+};
 
 export default class Timer extends React.Component {
 
@@ -51,6 +59,7 @@ export default class Timer extends React.Component {
 
 	render() {
 		let fetch = <button onClick={getPomodoros}>FETCH</button>;
+		let postFetch = <button onClick={() => postPomodoro(SAMPLE_DATA)}>POST FETCH</button>;
 
 		let start = (this.state.time === 0) ?
 			<button onClick={this.startTimer}>START</button> :
@@ -72,6 +81,7 @@ export default class Timer extends React.Component {
 			<div>
 				<h3>timer: {(this.state.time)}</h3>
 				{fetch}
+				{postFetch}
 				{start}
 				{resume}
 				{stop}
@@ -79,7 +89,6 @@ export default class Timer extends React.Component {
 			</div>
 		);
 	}
-
 }
 
 
