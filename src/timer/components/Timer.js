@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {getPomodoros} from '../../api/api';
 
 //todo fix bug
 //todo split to component and container
@@ -49,8 +50,9 @@ export default class Timer extends React.Component {
 	};
 
 	render() {
+		let fetch = <button onClick={getPomodoros}>FETCH</button>;
 
-		let start = (this.state.time == 0) ?
+		let start = (this.state.time === 0) ?
 			<button onClick={this.startTimer}>START</button> :
 			null;
 
@@ -69,6 +71,7 @@ export default class Timer extends React.Component {
 		return (
 			<div>
 				<h3>timer: {(this.state.time)}</h3>
+				{fetch}
 				{start}
 				{resume}
 				{stop}
