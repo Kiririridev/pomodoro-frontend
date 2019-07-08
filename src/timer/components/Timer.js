@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {getPomodoros, postPomodoro} from '../../api/api';
 import PomodoroTable from "./table/PomodoroTable";
 import ButtonPad from "./table/ButtonPad";
 

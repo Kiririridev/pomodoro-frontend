@@ -1,17 +1,17 @@
 import {combineReducers, createStore, applyMiddleware} from "redux";
-import reducer from "./reducers/reducers";
+import mainReducer from "./reducers/reducers";
 import thunk from "redux-thunk";
 
-// const reducers = combineReducers({reducer});
+// const reducers = combineReducers({mainReducer});
 //
 
-const initialState = {
+export const INITIAL_STATE = {
 	dataLoading: false,
 	pomodoros: [],
 };
 
 const reducers = combineReducers({
-	reducer,
+	main: mainReducer,
 });
 
 

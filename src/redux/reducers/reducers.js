@@ -1,11 +1,8 @@
 import ACTION_TYPES from "../actions/actionTypes";
+import {INITIAL_STATE} from "../setupStore";
 
-const INITIAL_STATE = {
-	dataLoading: false,
-	pomodoros: [],
-};
 
-const reducer = (state = INITIAL_STATE, action) => {
+const mainReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case ACTION_TYPES.START_POMODOROS_FETCH:
 			return {
@@ -22,9 +19,8 @@ const reducer = (state = INITIAL_STATE, action) => {
 			};
 
 		default:
-
 			return state;
 	}
 };
 
-export default reducer;
+export default mainReducer;

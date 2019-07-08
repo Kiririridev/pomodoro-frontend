@@ -2,23 +2,33 @@ import React from 'react';
 import PomodoroRow from "./PomodoroRow";
 import * as PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {selectPomodoros} from "../../../redux/storeSelectors/storeSelectors";
 
 const PomodoroTable = props => {
 
 	PomodoroTable.propTypes = {
-		pomodoros: PropTypes.object,
+		pomodoros: PropTypes.array,
 	};
 
-	console.log("POMODOROTABLE: " + JSON.stringify(props.pomodoros));
 
-	return props.pomodoros.map(pomodoro => <PomodoroRow pomodoro={pomodoro}/>);
+	console.log("POMODOROTABLE: " + JSON.stringify(props.pomodoros));
+	console.log("POMODOROTABLEPROPS: " + JSON.stringify(props));
+
+
+	let rows = props.pomodoros.map(pomodoro => <PomodoroRow key={pomodoro.pomodoroId} pomodoro={pomodoro}/>);
+
+	return <ul>
+		{rows}
+	</ul>;
 };
 
 const mapStateToProps = (state) => {
 	return {
-		pomodoros: state.pomodoros,
+		pomodoros: selectPomodoros(state),
 	};
 };
 
 export default connect(
-	mapStateToProps)(PomodoroTable);
+	mapStateToProps,
+	undefined)
+(PomodoroTable);

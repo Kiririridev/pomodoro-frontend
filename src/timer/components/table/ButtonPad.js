@@ -1,6 +1,8 @@
 import React from 'react';
 import {getPomodoros, postPomodoro} from "../../../api/api";
 import {connect} from "react-redux";
+import {selectPomodoros} from "../../../redux/storeSelectors/storeSelectors";
+import {bindActionCreators} from "redux";
 
 
 const SAMPLE_DATA = {
@@ -14,8 +16,8 @@ const SAMPLE_DATA = {
 
 const ButtonPad = props => {
 
-	console.log("ButtonPad props: ");
-	console.log(JSON.stringify(props));
+	// console.log("ButtonPad props: ");
+	// console.log(JSON.stringify(props));
 
 	//todo proptypes
 
@@ -28,11 +30,23 @@ const ButtonPad = props => {
 	</>;
 };
 
-const mapStateToProps = {};
-
-const mapDispatchToProps = {
-	getPomodoros,
+const mapStateToProps = state => {
+	return {
+		pomodoros: selectPomodoros(state),
+	};
 };
+
+// const mapDispatchToProps = dispatch => bindActionCreators(
+// 	{
+// 		getPomodoros: () => getPomodoros(dispatch),
+// 	}, dispatch);
+
+const mapDispatchToProps = dispatch => {
+	return {
+		getPomodoros: () => getPomodoros(dispatch),
+	};
+};
+
 
 export default connect(
 	mapStateToProps,

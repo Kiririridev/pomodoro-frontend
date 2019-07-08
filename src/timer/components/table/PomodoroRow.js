@@ -1,7 +1,7 @@
 import React from "react";
 import * as PropTypes from "prop-types";
 
-const PomodoroRow = () => {
+const PomodoroRow = props => {
 
 	PomodoroRow.propTypes = {
 		pomodoro: PropTypes.shape({
@@ -14,13 +14,19 @@ const PomodoroRow = () => {
 		}),
 	};
 
-	return <li>
-		<text>{this.props.pomodoroId}</text>
-		<text>{this.props.userId}</text>
-		<text>{this.props.pomodoroDate}</text>
-		<text>{this.props.length}</text>
-		<text>{this.props.description}</text>
-		<text>{this.props.tag}</text>
+	console.log(JSON.stringify(props));
+
+	// return <li key={props.pomodoroId}>
+	// 	<Text>{props.pomodoroId}</Text>
+	// 	<Text>{props.userId}</Text>
+	// 	<Text>{props.pomodoroDate}</Text>
+	// 	<Text>{props.length}</Text>
+	// 	<Text>{props.description}</Text>
+	// 	<Text>{props.tag}</Text>
+	// </li>;
+
+	return <li key={props.pomodoro.pomodoroId}>
+		{props.pomodoro.pomodoroId.toString()}
 	</li>;
 };
 

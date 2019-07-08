@@ -5,17 +5,16 @@ const LOCALHOST = "http://localhost:8080";
 const GET = "/pomodoroget";
 const POST = "/pomodoropost";
 
-export const getPomodoros = (state, dispatch) => () => {
+export const getPomodoros = (dispatch) => {
 
 	//todo split actions to update pomodoros and finish get call
 
-	debugger;
 
 	dispatch(startPomodorosFetch);
 
 	console.log("INSIDE GETPOMODOROS");
 
-	const collectPomodorosAndUpdateActionStatus = () => dispatch(finishPomodorosFetch);
+	const collectPomodorosAndUpdateActionStatus = pomodoros => dispatch(finishPomodorosFetch(pomodoros));
 
 	return fetch(LOCALHOST + GET, createGetRequest())
 		.then(printStatus)
@@ -46,7 +45,8 @@ const extractJSON = response => response.json();
 // };
 
 const printJSON = json => {
-	return json.map(item => console.log(item));
+	json.map(item => console.log(item));
+	return json;
 };
 
 const printStatus = response => {

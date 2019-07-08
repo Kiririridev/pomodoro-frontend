@@ -1,0 +1,1 @@
+export const selectPomodoros = store => store.main.pomodoros;
