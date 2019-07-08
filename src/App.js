@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Timer from './timer/components/Timer.js';
+import setupStore from "./redux/setupStore";
+import {Provider} from "react-redux";
+
+const store = setupStore();
 
 ReactDOM.render(
-	<Timer/>,
+	<Provider store={store}>
+		<Timer/>
+	</Provider>,
 	document.getElementById("app"),
 );
 

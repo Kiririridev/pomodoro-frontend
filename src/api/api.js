@@ -1,16 +1,29 @@
 import {fetch} from "whatwg-fetch";
+import {finishPomodorosFetch, startPomodorosFetch} from "../redux/actionCreators/actionCreators";
 
 const LOCALHOST = "http://localhost:8080";
 const GET = "/pomodoroget";
 const POST = "/pomodoropost";
 
-export const getPomodoros = () => {
+export const getPomodoros = (state, dispatch) => () => {
+
+	//todo split actions to update pomodoros and finish get call
+
+	debugger;
+
+	dispatch(startPomodorosFetch);
+
+	console.log("INSIDE GETPOMODOROS");
+
+	const collectPomodorosAndUpdateActionStatus = () => dispatch(finishPomodorosFetch);
+
 	return fetch(LOCALHOST + GET, createGetRequest())
 		.then(printStatus)
 		.then(extractJSON)
 		.then(printJSON)
-		.catch(error => console.log(error))
-		.finally(callFinished);
+		.then(collectPomodorosAndUpdateActionStatus)
+		.catch(error => console.log(error));
+
 };
 
 export const postPomodoro = pomodoro => {
@@ -20,14 +33,20 @@ export const postPomodoro = pomodoro => {
 		.finally(callFinished);
 };
 
+
 const callFinished = () => {
 	console.log("CALL FINISHED");
 };
 
 const extractJSON = response => response.json();
 
+// const printJSON = json => {
+// 	json.forEach(item => console.log(item));
+// 	return json;
+// };
+
 const printJSON = json => {
-	json.forEach(item => console.log(item));
+	return json.map(item => console.log(item));
 };
 
 const printStatus = response => {

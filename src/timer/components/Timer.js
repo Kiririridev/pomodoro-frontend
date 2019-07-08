@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {getPomodoros, postPomodoro} from '../../api/api';
+import PomodoroTable from "./table/PomodoroTable";
+import ButtonPad from "./table/ButtonPad";
 
 //todo fix bug
 //todo split to component and container
@@ -14,6 +16,8 @@ const SAMPLE_DATA = {
 	description: "testFetches",
 	tag: "TEST",
 };
+
+//let pomodoros = getPomodoros();
 
 export default class Timer extends React.Component {
 
@@ -58,8 +62,12 @@ export default class Timer extends React.Component {
 	};
 
 	render() {
-		let fetch = <button onClick={getPomodoros}>FETCH</button>;
-		let postFetch = <button onClick={() => postPomodoro(SAMPLE_DATA)}>POST FETCH</button>;
+		//	console.log("TIMER" + JSON.stringify(pomodoros));
+
+		// let fetch = <button onClick={getPomodoros}>FETCH</button>;
+		// let postFetch = <button onClick={() => postPomodoro(SAMPLE_DATA)}>POST FETCH</button>;
+		let pomodoroTable = <PomodoroTable/>;
+		let buttonPad = <ButtonPad/>;
 
 		let start = (this.state.time === 0) ?
 			<button onClick={this.startTimer}>START</button> :
@@ -78,15 +86,16 @@ export default class Timer extends React.Component {
 			<button onClick={this.resetTimer}>RESET</button>;
 
 		return (
-			<div>
+			<>
 				<h3>timer: {(this.state.time)}</h3>
-				{fetch}
-				{postFetch}
+
 				{start}
 				{resume}
 				{stop}
 				{reset}
-			</div>
+				{pomodoroTable}
+				{buttonPad}
+			</>
 		);
 	}
 }
