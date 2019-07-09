@@ -33,7 +33,9 @@
     "webpack-dev-server": "^3.2.1",
     "whatwg-fetch": "^3.0.0",
     "prop-types": "latest",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "css-loader": "^3.0.0",
+    "style-loader": "0.23.1"
   },
   "devDependencies": {
     "jest": "^24.8.0"

@@ -3,6 +3,7 @@ import PomodoroRow from "./PomodoroRow";
 import * as PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {selectPomodoros} from "../../../redux/storeSelectors/storeSelectors";
+import "../../../../styles/PomodoroTable.css";
 
 const PomodoroTable = props => {
 
@@ -17,7 +18,10 @@ const PomodoroTable = props => {
 
 	let rows = props.pomodoros.map(pomodoro => <PomodoroRow key={pomodoro.pomodoroId} pomodoro={pomodoro}/>);
 
-	return <ul>
+	return <ul style={{
+		flexDirection: 'column',
+		color: 'blue',
+	}}>
 		{rows}
 	</ul>;
 };

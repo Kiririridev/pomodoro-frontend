@@ -2,8 +2,6 @@ import {combineReducers, createStore, applyMiddleware} from "redux";
 import mainReducer from "./reducers/reducers";
 import thunk from "redux-thunk";
 
-// const reducers = combineReducers({mainReducer});
-//
 
 export const INITIAL_STATE = {
 	dataLoading: false,

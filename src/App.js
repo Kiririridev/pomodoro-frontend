@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Timer from './timer/components/Timer.js';
 import setupStore from "./redux/setupStore";
 import {Provider} from "react-redux";
+import "../styles/PomodoroTable.css";
 
 const store = setupStore();
 
