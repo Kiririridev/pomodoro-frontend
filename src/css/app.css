@@ -1,4 +1,5 @@
 div#pomodoroRow {
     flex-direction: column;
-    border: dotted;
+    border: solid;
+    margin: 10px;
 }

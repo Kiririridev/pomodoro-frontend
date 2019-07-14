@@ -1,5 +1,5 @@
 import React from 'react';
-import {getPomodoros, postPomodoro} from "../../../api/apiCalls";
+import {getPomodoros} from "../../../api/getPomodoros";
 import {connect} from "react-redux";
 import {selectPomodoros} from "../../../redux/storeSelectors/storeSelectors";
 
@@ -21,7 +21,6 @@ const ButtonPad = props => {
 
 	return <>
 		{fetch}
-		{/*{postFetch}*/}
 	</>;
 };
 
