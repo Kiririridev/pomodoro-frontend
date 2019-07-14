@@ -1,0 +1,4 @@
+div#pomodoroRow {
+    flex-direction: column;
+    border: dotted;
+}
