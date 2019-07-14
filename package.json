@@ -37,7 +37,9 @@
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2",
     "whatwg-fetch": "3.0.0",
-    "jest-mock": "^24.8.0"
+    "jest-mock": "^24.8.0",
+    "image-webpack-loader": "^5.0.0",
+    "file-loader": "^4.0.0"
   },
   "devDependencies": {
     "jest": "^24.8.0"
