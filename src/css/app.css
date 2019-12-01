@@ -4,14 +4,16 @@ html, body, #app, #app > div {
 }
 
 div#background {
-    background: url(../resources/2_gui_c_purplebar.jpg);
     width: 100%;
     height: 100%;
+    background: url(../resources/02_1920x1080_72dpi.jpg) no-repeat fixed;
+    overflow: auto;
 }
 
 div#pomodoroRow {
     flex-direction: column;
-    border: solid;
+    border: 1px solid;
     margin: 10px;
     color: white;
+    padding: 1px 5px;
 }
