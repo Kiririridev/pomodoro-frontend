@@ -6,6 +6,7 @@ import thunk from "redux-thunk";
 export const INITIAL_STATE = {
 	uploadingPomodoro: false,
 	dataLoading: false,
+	selectedMainScreen: 'timer',
 	pomodoros: [],
 };
 
