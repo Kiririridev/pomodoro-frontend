@@ -1,6 +1,7 @@
 import React from "react";
 import * as PropTypes from "prop-types";
 
+
 const PomodoroRow = props => {
 
 	const CSS_ID = "pomodoroRow";
@@ -19,12 +20,12 @@ const PomodoroRow = props => {
 	console.log(JSON.stringify(props));
 
 	return <div id={CSS_ID}>
-		{props.pomodoro.pomodoroId}
-		{props.pomodoro.userId}
-		{props.pomodoro.pomodoroDate}
-		{props.pomodoro.length}
-		{props.pomodoro.description}
-		{props.pomodoro.tag}
+		<p>PomodoroId: {props.pomodoro.pomodoroId}</p>
+		<p>UserId : {props.pomodoro.userId}</p>
+		<p>Date: {props.pomodoro.pomodoroDate}</p>
+		<p>Length: {props.pomodoro.length}</p>
+		<p>Description: {props.pomodoro.description}</p>
+		<p>Tag: {props.pomodoro.tag}</p>
 	</div>;
 };
 
