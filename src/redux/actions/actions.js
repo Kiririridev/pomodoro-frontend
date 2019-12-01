@@ -25,3 +25,10 @@ export const finishPomodorosFetchPost = () => {
 		type: ACTION_TYPES.FINISH_POMODOROS_FETCH_POST,
 	};
 };
+
+export const selectMainScreen = (mainScreen) => {
+	return {
+		type: ACTION_TYPES.SELECT_MAIN_SCREEN,
+		selectedMainScreen: mainScreen,
+	};
+};

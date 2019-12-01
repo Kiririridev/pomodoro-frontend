@@ -29,6 +29,12 @@ const mainReducer = (state = INITIAL_STATE, action) => {
 				uploadingPomodoro: false,
 			};
 
+		case ACTION_TYPES.SELECT_MAIN_SCREEN:
+			return {
+				...state,
+				selectedMainScreen: action.selectedMainScreen,
+			};
+
 		default:
 			return state;
 	}
