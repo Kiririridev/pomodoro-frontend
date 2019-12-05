@@ -6,8 +6,13 @@ import {TimerButtonPad} from "./table/TimerButtonPad";
 //todo rewrite to functional component
 //todo plan redux
 
-const formatTime = time => Math.round(time / 1000);
+const date = new Date(null);
 
+const formatTime = time => {
+
+	date.setSeconds(time / 1000);
+	return date.toISOString().substr(11, 8);
+};
 
 const renderTimer = (time) => <h3>Timer: {formatTime(time)}</h3>;
 
