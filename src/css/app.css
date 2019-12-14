@@ -17,3 +17,19 @@ div#pomodoroRow {
     color: white;
     padding: 1px 5px;
 }
+
+#CircularProgress {
+    display: inline-block;
+    position: absolute;
+    margin-left: 50%;
+}
+
+.timer-pad {
+    display: flex;
+    flex-direction: column;
+}
+
+.timer-pad-row {
+    display: flex;
+    justify-content: center;
+}
