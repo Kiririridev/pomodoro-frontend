@@ -5,6 +5,7 @@ import {sendPomodoro} from "./timer/sendPomodoro";
 import {TimerInput} from "./timer/TimerInput";
 import {PomodoroCircularProgress} from "./PomodoroCircularProgress";
 import {PomodoroPropertiesInput} from "./PomodoroPropertiesInput";
+import connect from "react-redux/es/connect/connect";
 
 //todo fix bug
 //todo split to component and container
@@ -13,7 +14,7 @@ import {PomodoroPropertiesInput} from "./PomodoroPropertiesInput";
 
 const renderTimer = (time) => <h3>Timer: {formatTime(time)}</h3>;
 
-export default class Timer extends React.Component {
+class Timer extends React.Component {
 
 	timer;
 
@@ -24,11 +25,21 @@ export default class Timer extends React.Component {
 			isOn: false,
 			isPaused: false,
 			targetTime: 0,
+			tag: '',
+			description: '',
 		};
 	}
 
 	handlePomodoroEnd() {
-		sendPomodoro();
+		console.table(this.state);
+
+		const length = this.state.targetTime - this.state.time;
+
+		this.props.actions.sendPomodoro(
+			length,
+			this.state.tag,
+			this.state.description,
+		);
 		clearInterval(this.timer);
 		this.setState({
 			time: 0,
@@ -68,9 +79,14 @@ export default class Timer extends React.Component {
 		this.setState({
 			isPaused: false,
 		});
-		this.timer = setInterval(() => this.setState({
-			time: this.state.time - 1,
-		}), 1000);
+		this.timer = setInterval(() => {
+
+			this.setState({
+				time: this.state.time - 1,
+			});
+
+			this.checkIfFinishied();
+		}, 50);
 	}
 
 	pauseTimer() {
@@ -82,7 +98,7 @@ export default class Timer extends React.Component {
 
 	resetTimer() {
 		clearInterval(this.timer);
-		sendPomodoro();
+		this.handlePomodoroEnd();
 		this.setState({
 			time: 0,
 			isOn: false,
@@ -96,7 +112,7 @@ export default class Timer extends React.Component {
 		this.setState({targetTime: targetTimeSeconds});
 	}
 
-	isTimerInputDisabled() {
+	isInputDisabled() {
 		return this.state.isOn || this.state.isPaused;
 	}
 
@@ -123,13 +139,25 @@ export default class Timer extends React.Component {
 	renderTimerInput() {
 		return <TimerInput
 			onChange={(event) => this.handleTimeUpdate(event)}
-			isDisabled={this.isTimerInputDisabled()}/>;
+			isDisabled={this.isInputDisabled()}/>;
 	}
 
 	renderCircularProgress() {
 		return <PomodoroCircularProgress
 			progress={this.getProgress()}
 		/>;
+	}
+
+	handleTagChange(event) {
+		this.setState({
+			tag: event.target.value,
+		});
+	}
+
+	handleDescriptionChange(event) {
+		this.setState({
+			description: event.target.value,
+		});
 	}
 
 	render() {
@@ -149,12 +177,24 @@ export default class Timer extends React.Component {
 					{this.renderTimerButtonPad()}
 				</div>
 				<div>
-					<PomodoroPropertiesInput/>
+					<PomodoroPropertiesInput
+						handleChangeTag={event => this.handleTagChange(event)}
+						handleChangeDescription={event => this.handleDescriptionChange(event)}
+						isDisabled={this.isInputDisabled()}
+					/>
 				</div>
 			</div>
 		);
 	}
 }
 
+const mapDispatchToProps = dispatch => {
+	return {
+		actions: {
+			sendPomodoro: sendPomodoro(dispatch),
+		},
+	};
+};
 
 
+export default connect(undefined, mapDispatchToProps)(Timer);
