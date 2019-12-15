@@ -1,9 +1,9 @@
 import {postPomodoroCall} from "./apiCalls";
 
-export const postPomodoro = dispatch => pomodoro => {
+export const postPomodoro = (pomodoro, dispatch) => {
 
-	dispatch();
+	// dispatch();
 
 	postPomodoroCall(pomodoro)
-		.then(callFinished);
+	// .then(callFinished);
 };
