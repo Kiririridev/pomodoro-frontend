@@ -7,16 +7,16 @@ export const TimerButtonPad = props => {
 
 	//todo proptypes
 
-	const {startTimer, pauseTimer, resetTimer, time, isOn} = props;
+	const {startTimer, pauseTimer, resetTimer, isOn, isPaused, resumeTimer} = props;
 
-	const start = (time === 0) ?
+	const start = !isOn && !isPaused ?
 		<Button onClick={startTimer} className={clazz}>START</Button> : null;
-	const pause = (time !== 0 && isOn == true) ?
+	const pause = !!isOn && !isPaused ?
 		<Button onClick={pauseTimer} className={clazz}>PAUSE</Button> : null;
-	const resume = (time === 0 || isOn) ?
-		null : <Button onClick={startTimer} className={clazz}>RESUME</Button>;
-	const reset = (time === 0 || isOn) ?
-		null : <Button onClick={resetTimer} className={clazz}>RESET</Button>;
+	const resume = !!isPaused ?
+		<Button onClick={resumeTimer} className={clazz}>RESUME</Button> : null;
+	const reset = !!isPaused ?
+		<Button onClick={resetTimer} className={clazz}>RESET</Button> : null;
 
 	return <>
 		{start}
