@@ -12,7 +12,6 @@ export const TimerInput = props => {
 		type="time"
 		InputLabelProps={{
 			shrink: true,
-			margin: 'none',
 		}}
 		InputProps={{
 			step: 1000,
