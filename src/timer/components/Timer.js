@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {TimerButtonPad} from "./table/TimerButtonPad";
-import {CircularProgress} from '@material-ui/core';
-import {InputBase, TextField, FormControl} from '@material-ui/core';
 import {formatTime} from "./utils/formatTime";
-import * as moment from 'moment';
+import {sendPomodoro} from "./timer/sendPomodoro";
+import {TimerInput} from "./timer/TimerInput";
+import {PomodoroCircularProgress} from "./PomodoroCircularProgress";
+import {PomodoroPropertiesInput} from "./PomodoroPropertiesInput";
 
 //todo fix bug
 //todo split to component and container
@@ -12,131 +13,143 @@ import * as moment from 'moment';
 
 const renderTimer = (time) => <h3>Timer: {formatTime(time)}</h3>;
 
-const renderTimerInput = (onChange, isDisabled) => {
-
-	const preventDefault = (event) => event.preventDefault();
-
-	return <TextField
-		label="Minutes"
-		type="time"
-		InputLabelProps={{
-			shrink: true,
-			margin: 'none',
-		}}
-		InputProps={{
-			step: 1000,
-			type: 'number',
-			min: 0,
-			max: 100,
-		}}
-		margin={'dense'}
-		size={'medium'}
-		variant={"standard"}
-		name={'time'}
-		onChange={onChange}
-		onSubmit={preventDefault}
-		disabled={isDisabled}
-		min={0}
-		max={100}
-	/>;
-};
-
 export default class Timer extends React.Component {
 
 	timer;
-
-	// startTimer() {
-	// 	this.setState({
-	// 		isOn: true,
-	// 		time: this.state.time,
-	// 		start: Date.now() - this.state.time,
-	// 	});
-	// 	this.timer = setInterval(() => this.setState({
-	// 		// time: Date.now() - this.state.start,
-	// 		time: this.state.time + 1000,
-	// 	}), 1000);
-	// };
-
-	startTimer() {
-
-		console.log(this.state.targetTime);
-
-		if (!!this.state.targetTime) {
-			this.setState({
-				isOn: true,
-				time: this.state.time,
-				start: Date.now() - this.state.time,
-			});
-			this.timer = setInterval(() => this.setState({
-				// time: Date.now() - this.state.start,
-				time: this.state.time + 1000,
-			}), 1000);
-		} else {
-			console.log('please set time');
-		}
-	};
-
-	pauseTimer() {
-		clearInterval(this.timer);
-		this.setState({
-			isOn: false,
-		});
-	};
-
-	resetTimer() {
-		clearInterval(this.timer);
-		this.setState({
-			time: 0,
-			isOn: false,
-		});
-	};
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			time: 0,
 			isOn: false,
-			start: 0,
+			isPaused: false,
 			targetTime: 0,
 		};
 	}
 
-	handleTimeUpdate(event) {
-		const targetTime = moment.duration(event.target.value).asSeconds();
+	handlePomodoroEnd() {
+		sendPomodoro();
+		clearInterval(this.timer);
+		this.setState({
+			time: 0,
+			isOn: false,
+			isPaused: false,
+		});
+	}
 
-		this.setState(
-			{targetTime: targetTime});
-		console.log(targetTime);
-		console.log(event.target.value);
-		console.table(this.state);
+	checkIfFinishied() {
+		if (this.state.time <= 0) {
+			this.handlePomodoroEnd();
+		}
+	}
+
+	//todo change time speed
+	startTimer() {
+
+		if (!!this.state.targetTime) {
+			this.setState({
+				isOn: true,
+				isPaused: false,
+				time: this.state.targetTime,
+			});
+			this.timer = setInterval(() => {
+				this.setState({
+					time: this.state.time - 1,
+				});
+
+				this.checkIfFinishied();
+			}, 50);
+		} else {
+			console.log('please set time');
+		}
+	};
+
+	resumeTimer() {
+		this.setState({
+			isPaused: false,
+		});
+		this.timer = setInterval(() => this.setState({
+			time: this.state.time - 1,
+		}), 1000);
+	}
+
+	pauseTimer() {
+		clearInterval(this.timer);
+		this.setState({
+			isPaused: true,
+		});
+	};
+
+	resetTimer() {
+		clearInterval(this.timer);
+		sendPomodoro();
+		this.setState({
+			time: 0,
+			isOn: false,
+			isPaused: false,
+		});
+	};
+
+	handleTimeUpdate(event) {
+		const targetTimeSeconds = event.target.value * 60;
+
+		this.setState({targetTime: targetTimeSeconds});
+	}
+
+	isTimerInputDisabled() {
+		return this.state.isOn || this.state.isPaused;
+	}
+
+	getProgress() {
+
+		if (!this.state.isOn) {
+			return 100;
+		} else {
+			return (this.state.time / this.state.targetTime) * 100;
+		}
+	}
+
+	renderTimerButtonPad() {
+		return <TimerButtonPad
+			startTimer={() => this.startTimer()}
+			pauseTimer={() => this.pauseTimer()}
+			resetTimer={() => this.resetTimer()}
+			resumeTimer={() => this.resumeTimer()}
+			isOn={this.state.isOn}
+			isPaused={this.state.isPaused}
+			time={this.state.time}/>;
+	}
+
+	renderTimerInput() {
+		return <TimerInput
+			onChange={(event) => this.handleTimeUpdate(event)}
+			isDisabled={this.isTimerInputDisabled()}/>;
+	}
+
+	renderCircularProgress() {
+		return <PomodoroCircularProgress
+			progress={this.getProgress()}
+		/>;
 	}
 
 	render() {
+
 		return (
 			<div className={'timer-pad'}>
 				<div className={'timer-pad-row'}>
-					<CircularProgress
-						variant={"static"}
-						value={50}
-						thickness={5}
-						size={'10rem'}
-					/>
+					{this.renderCircularProgress()}
 				</div>
 				<div className={'timer-pad-row'}>
 					{renderTimer(this.state.time)}
 				</div>
 				<div className={'timer-pad-row'}>
-					{renderTimerInput(
-						(event) => this.handleTimeUpdate(event),
-						this.state.isOn)}
+					{this.renderTimerInput()}
 				</div>
 				<div className={'timer-pad-row'}>
-					<TimerButtonPad
-						startTimer={() => this.startTimer()}
-						pauseTimer={() => this.pauseTimer()}
-						resetTimer={() => this.resetTimer()}
-						isOn={this.state.isOn}
-						time={this.state.time}/>
+					{this.renderTimerButtonPad()}
+				</div>
+				<div>
+					<PomodoroPropertiesInput/>
 				</div>
 			</div>
 		);
