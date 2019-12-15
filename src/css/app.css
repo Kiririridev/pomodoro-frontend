@@ -33,3 +33,24 @@ div#pomodoroRow {
     display: flex;
     justify-content: center;
 }
+
+.timer-properties-input {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    width: available;
+}
+
+.timer-properties-input > .properties-text-field {
+    margin: 1rem;
+}
+
+.tag-properties-input {
+    width: 40%;
+}
+
+.description-properties-input {
+    width: 60%;
+    height: 10rem;
+}
+

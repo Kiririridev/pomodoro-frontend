@@ -3,31 +3,32 @@ import {TextField} from '@material-ui/core';
 
 export const PomodoroPropertiesInput = props => {
 
+	const {handleChangeTag, handleChangeDescription, isDisabled} = props;
 	const toUpperCase = (event) => {
 		event.target.value = event.target.value.toUpperCase();
 	};
 
+	const handleChangeTagCombined = event => {
+		toUpperCase(event);
+		handleChangeTag(event);
+	};
+
 	return <div className={'timer-properties-input'}>
 		<TextField
-			onChange={toUpperCase}
-			className={'properties-text-field'}
-			label={'Tag'}/>
+			onChange={handleChangeTagCombined}
+			className={'properties-text-field tag-properties-input'}
+			label={'Tag'}
+			variant={"outlined"}
+			disabled={isDisabled}
+		/>
 		<TextField
-			className={'properties-text-field'}
-			label={"Description"}/>
+			onChange={handleChangeDescription}
+			className={'properties-text-field description-properties-input'}
+			label={"Description"}
+			multiline={true}
+			rows={3}
+			variant={"outlined"}
+			disabled={isDisabled}
+		/>
 	</div>;
 };
-
-
-//
-// PomodoroId: 0
-//
-// UserId : kiri
-//
-// Date: 1994-06-23
-//
-// Length: 20
-//
-// Description: firstPom
-//
-// Tag:
