@@ -24,7 +24,7 @@
     "css-loader": "^3.0.0",
     "jest": "^24.8.0",
     "jest-fetch-mock": "^2.1.2",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.21",
     "nock": "^10.0.6",
     "prop-types": "latest",
     "react": "^16.8.6",
